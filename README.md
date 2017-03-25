@@ -1,6 +1,19 @@
 # haproxy-dockerfile
 haproxy docker image built with binary hardening &amp; libressl
 
+# motivation
+I noticed that the existing docker images were not compiling `haproxy` with
+many (if any) exploit mitigations (as of 11 March 2017) when using Debian's `hardening-check`
+
+|                                 |  Debian apt-get  | Docker (alpine)  | Docker (debian)  |
+|---------------------------------|------------------|------------------|------------------|
+| Position Independent Executable | no               | yes              | no               |
+| Stack protected                 | yes              | yes              | no               |
+| Fortify Source functions        | yes (some)       | no               | no               |
+| Read-only relocations           | yes              | yes              | no               |
+| Immediate binding               | no               | yes              | no               |
+| OpenSSL                         | 1.0.1t           | 1.0.2k           | 1.0.1t           |
+
 # protections
 This docker image aims to be a drop in replacement for the offical `haproxy`
 image but built with binary hardening flags and statically linked against
